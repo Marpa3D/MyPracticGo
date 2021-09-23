@@ -1,13 +1,24 @@
 package main
 
 import (
-	"MyPracticGo/cmd/packages"
+	"MyPracticGo/cmd/channels"
 	"log"
 )
 
-func main()  {
-	var myVar packages.SomeThing
-	myVar.Name = "Slava"
+const numPool = 1024
 
-	log.Println(myVar.Name)
+func CalcuateValues(inChan chan int)  {
+	randomNumber := channels.RandomNumbers(numPool)
+	inChan <- randomNumber
+}
+
+func main()  {
+
+	inChan := make(chan int)
+	defer close(inChan)
+
+	go CalcuateValues(inChan)
+	num := <- inChan
+
+	log.Println(num)
 }
