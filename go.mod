@@ -1,3 +1,3 @@
-module github.com/Marpa3D/MyPracticGo
+module MyPracticGo
 
 go 1.16
